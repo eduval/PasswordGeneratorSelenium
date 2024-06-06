@@ -11,17 +11,17 @@ pipeline {
     }
     stage('Testing'){
         steps{
-            echo 'Testing'
+            sh 'firebase deploy -P devops-proj-testing.web.app --token "$FIREBASE_DEPLOY_TOKEN"'  
         }
     }
     stage('Staging'){
         steps{
-            echo 'Staging'
+          sh 'firebase deploy -P devops-proj-staging.web.app --token "$FIREBASE_DEPLOY_TOKEN"'
         }
     }
     stage('Production'){
         steps{
-            echo 'Production'
+               sh 'firebase deploy -P devops-proj-production-bcfd9 --token "$FIREBASE_DEPLOY_TOKEN"'
         }
     }
   }
