@@ -11,7 +11,9 @@ pipeline {
     }
     stage('Testing'){
         steps{
-            sh 'firebase deploy -P devops-proj-testing --token "$FIREBASE_DEPLOY_TOKEN"'  
+            sh 'firebase deploy -P devops-proj-testing --token "$FIREBASE_DEPLOY_TOKEN"' 
+            sh 'npm install selenium-webdriver'
+            sh 'node test/test1.js' 
         }
     }
     stage('Staging'){
