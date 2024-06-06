@@ -2,28 +2,36 @@ const { By, Key, Builder } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 
 async function test_case() {
-    let driver = await new Builder().forBrowser("chrome").build();
+
+    //Set Chrome option
+    let options = new chrome.Options();
+    options.addArguments('headless');
+    options.addArguments('disable-gpu')
+    options.setChromeBinaryPath('/usr/bin/google-chrome');
+
+    // Create a Driver
+    let driver = await new Builder().forBrowser("chrome").setChromeOptions(options).build();
 
     try {
-        await driver.get("https://devops-proj-staging.web.app/");
+        //Send driver to website
+        await driver.get("https://devops-proj-testing.web.app/");
+
+        //Grab an element from the page
         await driver.findElement(By.id('generate')).click();
 
-        let resultElement = await driver.findElement(By.id('result'));
-        let resultText = await resultElement.getText();
+        //Check the result
+        let resultText = await driver.findElement(By.id('result')).getText();
 
         if (resultText !== "CLICK GENERATE") {
-            console.log("Testing Success");
+            console.log('Test Success');
         } else {
-            console.log("Testing Failed");
+            console.log('Test Failed');
         }
     } catch (error) {
-        console.error("An error occurred:", error);
+        console.log('An error accurred:', error);
     } finally {
-        // Close the browser after 10 seconds to observe the result
-        setTimeout(async function () {
-            await driver.quit();
-        }, 10000);
+        await driver.quit();
     }
-}
 
+}
 test_case();
