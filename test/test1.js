@@ -22,7 +22,7 @@ async function test_case() {
         //Check the result
         let resultText = await driver.findElement(By.id('result')).getText();
 
-        if (resultText !== "CLICK GENERATE") {
+        if (resultText === "CLICK GENERATE") {
             console.log('Test Success');
         } else {
             console.log('Test Failed');
